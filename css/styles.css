@@ -1,0 +1,20 @@
+:root {
+    --eggshell: #f4f1de;
+    --terracotta: #e07a5f;
+    --independenca: #3d405b;
+    --greensheen: #81b29a;
+    --de_champagne: #f2cc8f;
+    --padding: 20px;
+}
+
+body {
+    background-color: var(--eggshell);
+    color: var(--independence);
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    /* Sets the font size to 16px */
+    line-height: 1.6;
+    /* Sets the line-height to 1.6 */
+    padding : var(--padding);
+}
