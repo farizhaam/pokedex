@@ -22,8 +22,8 @@ pokemonList = [
     }
 ];
 
-//the loop intitates from 0, iterates until thge length of pokemonList, add +1 after each loop
-for (let i = 0; i < pokemonList.length; i++) {
+//the loop intitiates from 0, iterates until thge length of pokemonList, add +1 after each loop
+/* for (let i = 0; i < pokemonList.length; i++) {
     
     let reaction = ""; //initialize var reation
     let pokemonHeight = pokemonList[i].height; //assigning value pokemonList.height into var pokemonHeight
@@ -40,4 +40,23 @@ for (let i = 0; i < pokemonList.length; i++) {
         //printing to HTML the pokemon's name and their height as well as the raction according to their height
     );
 
-}
+} */
+
+//iteration using forEach() function
+pokemonList.forEach(function(pokemon){
+        
+    let reaction = ""; //initialize var reation
+    
+    if (pokemon.height < 1) {
+        reaction = "What a cutie!"; //reaction when the pokemon.height is less than 1 m
+    } else if (pokemon.height > 1 && pokemon.height <= 5){
+        reaction = "This one is big."; //reaction when the pokemon.height is between 1 and 5 m
+    } else {
+        reaction = "What an enormous pokemon!"; //reaction if the pokemon.height is higher than 5 m
+    }
+
+    document.write(
+        pokemon.name + ' (height: ' + pokemon.height + ') - ' + reaction + '<br>'
+        //printing to HTML the pokemon's name and their height as well as the raction according to their height
+    );
+});
