@@ -26,7 +26,12 @@ let pokemonRepository = (function(){
 
     //add a single pokemon to the pokemonList
     function add(pokemon){
-        pokemonList.push(pokemon);
+        if (typeof(pokemon) !== 'object') {
+            alert("Please add only an object!");
+        }else{
+            pokemonList.push(pokemon);
+        }
+        
     }
 
     //return all pokemon from pokemonList
