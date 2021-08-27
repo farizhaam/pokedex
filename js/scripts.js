@@ -47,12 +47,19 @@ let pokemonRepository = (function(){
 
 //writing the content from pokemonRepository using forEach() function
 pokemonRepository.getAll().forEach(function(pokemon){
+    //selecting the unordered list
     let myList = document.querySelector('ul');
+    //creating bullet list
     let listItem = document.createElement('li');
+    //creating a button
     let button = document.createElement('button');
+    //write the pokemon's name on the button
     button.innerText = pokemon.name;
+    //creating class for the list as 'pokemon-panel'
     button.classList.add('pokemon-panel');
+    //append the button on the bullet list
     listItem.appendChild(button);
+    //append the bullet list to unordered list
     myList.appendChild(listItem);
 
 /*     let reaction = ""; //initialize var reation
