@@ -42,24 +42,41 @@ let pokemonRepository = (function(){
     function addListItem(pokemon){
         //selecting the unordered list
         let myList = document.querySelector('ul');
+
         //creating bullet list
         let listItem = document.createElement('li');
+
         //creating a button
         let button = document.createElement('button');
+
         //write the pokemon's name on the button
         button.innerText = pokemon.name;
+
         //creating class for the list as 'pokemon-panel'
         button.classList.add('pokemon-panel');
+
+        //add click event to pokemon panel to display pokemon object on console log
+        button.addEventListener('click', function(pokemon){
+            showDetails(pokemon);
+        });
+
         //append the button on the bullet list
         listItem.appendChild(button);
+
         //append the bullet list to unordered list
         myList.appendChild(listItem);
+    }
+
+    //showing the information of the selected pokemon on console log
+    function showDetails(pokemon){
+        console.log(pokemon);
     }
 
     return {
         getAll: getAll,
         add: add,
-        addListItem: addListItem
+        addListItem: addListItem,
+        showDetails: showDetails
     }
 })();
 
