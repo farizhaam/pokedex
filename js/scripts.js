@@ -26,9 +26,9 @@ let pokemonRepository = (function(){
 
     //add a single pokemon to the pokemonList
     function add(pokemon){
-        if (typeof(pokemon) !== 'object') {
-            alert("Please add only an object!");
-        }else{
+        //make sure the new pokemon has these properties
+        if (typeof(pokemon) == 'object' && Object.keys(pokemon).includes('name')
+        && Object.keys(pokemon).includes('height') && Object.keys(pokemon).includes('type')) {
             pokemonList.push(pokemon);
         }
         
@@ -47,8 +47,15 @@ let pokemonRepository = (function(){
 
 //writing the content from pokemonRepository using forEach() function
 pokemonRepository.getAll().forEach(function(pokemon){
-        
-    let reaction = ""; //initialize var reation
+    let myList = document.querySelector('ul');
+    let listItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('pokemon-panel');
+    listItem.appendChild(button);
+    myList.appendChild(listItem);
+
+/*     let reaction = ""; //initialize var reation
     
     if (pokemon.height < 1) {
         reaction = "What a cutie!"; //reaction when the pokemon.height is less than 1 m
@@ -61,5 +68,5 @@ pokemonRepository.getAll().forEach(function(pokemon){
     document.write(
         pokemon.name + ' (height: ' + pokemon.height + ') - ' + reaction + '<br>'
         //printing to HTML the pokemon's name and their height as well as the raction according to their height
-    );
+    ); */
 });
