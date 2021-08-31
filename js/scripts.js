@@ -1,37 +1,20 @@
 //wrapping pokemonList inside pokemonRepository to avoid global state (IIFE)
 let pokemonRepository = (function(){
     //The Pokemon collection
-    let pokemonList = [
-        {
-            name: 'Bulbasaur', 
-            height: 0.7, 
-            types: ['grass', 'poison']
-        },
-        {
-            name: 'Psyduck', 
-            height: 0.8, 
-            types: ['water']
-        },
-        {
-            name: 'Snorlax', 
-            height: 2.1, 
-            types: ['normal']
-        },
-        {
-            name: 'Gyarados', 
-            height: 6.5, 
-            types: ['water', 'flying']
-        }
-    ];
+    let pokemonList = [];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
     //add a single pokemon to the pokemonList
     function add(pokemon){
         //make sure the new pokemon has these properties
-        if (typeof(pokemon) == 'object' && Object.keys(pokemon).includes('name')
-        && Object.keys(pokemon).includes('height') && Object.keys(pokemon).includes('type')) {
+        if (
+            typeof pokemon === "object" &&
+            "name" in pokemon
+        ) {
             pokemonList.push(pokemon);
+        } else {
+            console.log("pokemon is not correct");
         }
-        
     }
 
     //return all pokemon from pokemonList
@@ -41,7 +24,7 @@ let pokemonRepository = (function(){
 
     function addListItem(pokemon){
         //selecting the unordered list
-        let myList = document.querySelector('ul');
+        let myList = document.querySelector('.pokemon-list');
 
         //creating bullet list
         let listItem = document.createElement('li');
@@ -56,7 +39,7 @@ let pokemonRepository = (function(){
         button.classList.add('pokemon-panel');
 
         //add click event to pokemon panel to display pokemon object on console log
-        button.addEventListener('click', function(pokemon){
+        button.addEventListener('click', function(event){
             showDetails(pokemon);
         });
 
@@ -69,32 +52,61 @@ let pokemonRepository = (function(){
 
     //showing the information of the selected pokemon on console log
     function showDetails(pokemon){
-        console.log(pokemon);
+        loadDetails(pokemon).then(function() {
+            console.log(pokemon);
+        });
+    }
+
+    //load the list of Pokémon
+    function loadList() {
+        return fetch(apiUrl).then(function(response) {
+            return response.json(); //this returns promise
+        }).then(function(json) {
+            json.results.forEach(function(item){
+                //get pokemon's name and details url when resolved
+                let pokemon = {
+                    name : item.name,
+                    detailsUrl : item.url
+                };
+                add(pokemon);
+            });
+        }).catch(function(e) {
+            console.error(e);
+        })
+    }
+
+    function loadDetails(item) {
+        let url = item.detailsUrl;
+        return fetch(url).then(function(response) {
+            return response.json();
+        }).then(function(details) {
+            
+            //adding details to the item
+            item.imageUrl = details.sprites.front_default;
+            item.height = details.height;
+            item.type = details.types;
+        }).catch(function(e) {
+            console.error(e);
+        });
     }
 
     return {
         getAll: getAll,
         add: add,
         addListItem: addListItem,
-        showDetails: showDetails
-    }
+        showDetails: showDetails,
+        loadList: loadList,
+        loadDetails: loadDetails
+    };
+
+
 })();
 
-//writing the content from pokemonRepository using forEach() function
-pokemonRepository.getAll().forEach(function(pokemon){
-    pokemonRepository.addListItem(pokemon);
-/*     let reaction = ""; //initialize var reation
-    
-    if (pokemon.height < 1) {
-        reaction = "What a cutie!"; //reaction when the pokemon.height is less than 1 m
-    } else if (pokemon.height > 1 && pokemon.height <= 5){
-        reaction = "This one is big."; //reaction when the pokemon.height is between 1 and 5 m
-    } else {
-        reaction = "What an enormous pokemon!"; //reaction if the pokemon.height is higher than 5 m
-    }
 
-    document.write(
-        pokemon.name + ' (height: ' + pokemon.height + ') - ' + reaction + '<br>'
-        //printing to HTML the pokemon's name and their height as well as the raction according to their height
-    ); */
+//writing the content from pokemonRepository using forEach() function
+pokemonRepository.loadList().then(function(){
+    //now the data is loaded
+    pokemonRepository.getAll().forEach(function(pokemon){
+        pokemonRepository.addListItem(pokemon);
+    });
 });
