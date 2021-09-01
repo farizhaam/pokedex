@@ -57,11 +57,30 @@ let pokemonRepository = (function(){
         });
     }
 
+    //activating the loading image
+    function showLoadingImage() {
+        let loading = document.querySelector('#loading');
+        window.addEventListener('load',function(){
+            loading.style.visibility = 'visible';
+        });
+    }
+
+    //turn the vibility of loading image back to hidden, add 0.5s before hidden
+    function hideLoadingImage() {
+        let loading = document.querySelector('#loading');
+        setTimeout(function(){
+            loading.style.visibility = 'hidden';
+        }, 500);
+
+    }
+
     //load the list of Pokémon
     function loadList() {
+        showLoadingImage();
         return fetch(apiUrl).then(function(response) {
             return response.json(); //this returns promise
         }).then(function(json) {
+            hideLoadingImage();
             json.results.forEach(function(item){
                 //get pokemon's name and details url when resolved
                 let pokemon = {
@@ -71,13 +90,16 @@ let pokemonRepository = (function(){
                 add(pokemon);
             });
         }).catch(function(e) {
+            hideLoadingImage();
             console.error(e);
         })
     }
 
     function loadDetails(item) {
+        showLoadingImage();
         let url = item.detailsUrl;
         return fetch(url).then(function(response) {
+            hideLoadingImage();
             return response.json();
         }).then(function(details) {
             
@@ -86,6 +108,7 @@ let pokemonRepository = (function(){
             item.height = details.height;
             item.type = details.types;
         }).catch(function(e) {
+            hideLoadingImage();
             console.error(e);
         });
     }
@@ -96,7 +119,9 @@ let pokemonRepository = (function(){
         addListItem: addListItem,
         showDetails: showDetails,
         loadList: loadList,
-        loadDetails: loadDetails
+        loadDetails: loadDetails,
+        showLoadingImage: showLoadingImage,
+        hideLoadingImage: hideLoadingImage
     };
 
 
