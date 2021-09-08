@@ -100,7 +100,9 @@ let pokemonRepository = (function(){
             //adding details to the item
             item.imageUrl = details.sprites.front_default;
             item.height = details.height;
+            item.weight = details.weight;
             item.type = details.types;
+            item.ability = details.abilities;
         }).catch(function(e) {
             hideLoadingImage();
             console.error(e);
@@ -141,14 +143,25 @@ let pokemonRepository = (function(){
         //assigned for Modal text
         let contentElement = document.createElement('p');
         let pokeHeight = pokemon.height / 10; //meters
+        let pokeWeight = pokemon.weight / 10; //kg
         let pokeTypes = [];
-        Object.keys(pokemon.type).forEach(key => {
-            
-            pokeTypes.push(pokemon.type[key].type.name); //add pokemon type to pokeTypes
+        let pokeAbilities = [];
+        
+        Object.keys(pokemon.type).forEach(key => {//add pokemon type to pokeTypes
+            pokeTypes.push(pokemon.type[key].type.name); 
         });
 
-        contentElement.innerText = 'Height: ' + pokeHeight + 'm '+ '\r\n' + 'Types: ' + pokeTypes ;
+        Object.keys(pokemon.ability).forEach(key => {//add pokemon ability to pokeAbilities
+            pokeAbilities.push(pokemon.ability[key].ability.name); 
+        });
 
+        //write the details of selected pokemon onto the modal
+        contentElement.innerText = 'Height: ' + pokeHeight + 'm '+ '\r\n' 
+                                    + 'Weight: ' + pokeWeight + 'kg '+ '\r\n' 
+                                    + 'Types: ' + pokeTypes + '\r\n'
+                                    + 'Abilities: ' + pokeAbilities;
+
+        //adding pokemon front image
         let imageElement = document.createElement('img');
         imageElement.setAttribute('src', pokemon.imageUrl);
         imageElement.setAttribute('alt','Front view of' + pokemon.name);
