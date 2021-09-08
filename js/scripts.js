@@ -26,10 +26,9 @@ let pokemonRepository = (function(){
         //selecting the unordered list
         let myList = document.querySelector('.list-group');
 
-        //creating a list 
+        //creating bullet list
         let listItem = document.createElement('li');
-        listItem.classList.add('group-list-item'); //assigned its class as '.group-list-item'
-
+        listItem.classList.add('group-list-item');
 
         //creating a button
         let button = document.createElement('button');
@@ -37,13 +36,11 @@ let pokemonRepository = (function(){
         //write the pokemon's name on the button
         button.innerText = pokemon.name;
 
-        //creating class for the button
-        button.classList.add('btn', 'btn-primary');
-        button.setAttribute('data-target', '#exampleModal'); //setting Modal as the target for dataset
-        button.setAttribute('data-toggle', 'modal'); // toggle modal
+        //creating class for the list as 'pokemon-panel'
+        button.classList.add( 'btn', 'btn-primary');
 
         //add click event to pokemon panel to display pokemon object on console log
-        button.addEventListener("click", function(){
+        button.addEventListener('click', function(event){
             console.log(pokemon);
             // showDetails(pokemon);
         });
@@ -121,32 +118,31 @@ let pokemonRepository = (function(){
         });
     }
 
-    let modalContainer = document.querySelector('.modal-content');
+    let modalContainer = document.querySelector('#modal-container');
 
     //showing modal
     function showModal(pokemon) {
-        let modalHeader = document.querySelector('.modal-header');
-        let modalBody = document.querySelector('.modal-body');
-        let modalFooter = document.querySelector('.modal-footer');
-        
+        let modalContainer = document.querySelector('#modal-container');
 
         //clear all existing modal content
-        modalHeader.innerHTML = '';
-        modalBody.innerHTML = '';
+        modalContainer.innerHTML = '';
 
         //creating the modal
-// let modal = document.createElement('div');
-// modal.classList.add('modal');
+        let modal = document.createElement('div');
+        modal.classList.add('modal');
 
-        //close modal when 'X' or close button is clicked
-        let closeButtonElement = document.querySelector('.close');
+        //add the new modal content
+        let closeButtonElement = document.createElement('button');
+        closeButtonElement.classList.add('modal-close');
+        closeButtonElement.innerText = 'Close';
+        //close modal when 'Close' button is clicked
         closeButtonElement.addEventListener('click', hideModal);
 
-        //assigning Modal title
-        let titleElement = document.createElement('h1');
+        //assigned for Modal title
+        let titleElement = document.createElement('h2');
         titleElement.innerText = pokemon.name;
 
-        //assigning Modal text
+        //assigned for Modal text
         let contentElement = document.createElement('p');
         let pokeHeight = pokemon.height / 10; //meters
         let pokeWeight = pokemon.weight / 10; //kg
@@ -172,14 +168,14 @@ let pokemonRepository = (function(){
         imageElement.setAttribute('src', pokemon.imageUrl);
         imageElement.setAttribute('alt','Front view of' + pokemon.name);
 
-        modalHeader.appendChild(titleElement);
+        modal.appendChild(closeButtonElement);
+        modal.appendChild(imageElement);
+        modal.appendChild(titleElement);
+        modal.appendChild(contentElement);
+        modalContainer.appendChild(modal);
 
-        modalBody.appendChild(imageElement);
-        modalBody.appendChild(contentElement);
-// modalContainer.appendChild(modal);
-
-        //adding visibility class to modalContainer
-        // modalContainer.classList.add('is-visible');
+        //showing the modal
+        modalContainer.classList.add('is-visible');
     }
 
     let dialogPromiseReject;
