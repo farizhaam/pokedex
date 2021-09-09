@@ -134,15 +134,6 @@ let pokemonRepository = (function(){
         modalTitle.innerHTML = '';
         modalBody.innerHTML = '';
 
-        //creating the modal
-// let modal = document.createElement('div');
-// modal.classList.add('modal');
-
-        //add the new modal content
-        // let closeButtonElement = document.querySelector('#close-x');
-        // //close modal when 'Close' button is clicked
-        // closeButtonElement.addEventListener('click', hideModal);
-
         //assigned for Modal title
         let titleElement = document.createElement('h2');
         titleElement.innerText = pokemon.name;
