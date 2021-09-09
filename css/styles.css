@@ -24,20 +24,27 @@ body {
     padding : var(--padding);
 }
 
+.title {
+    text-align: center;
+    font-size: 50px;
+}
 .pokemon-list {
     list-style-type: none;
-
+    /*remove padding-inline-start: 40px*/
+    margin: 0;
+    padding: 0;
 }
 
 .pokemon-panel {
     /* overwrites browser defaults and resets the border */
     border: none;
-    width: 75%;
+    width: 50%;
     margin: 10px auto;
     display: block;
     /* takes the font from the outer container */
     font-family: inherit;
     font-size: inherit;
+    text-transform: capitalize;
     /* styles the background color, font color, and text decoration (underline, etc.) of the button */
     background-color: var(--de_champagne);
     color: var(--independence);
@@ -53,7 +60,7 @@ body {
     transition-property: opacity;
 }
 
-.pokemon-panel:hover { 
+.pokemon-panel:hover, .modal-close:hover { 
     /* lets the mouse appear as a hand when hovering over the button */
     cursor: pointer;
     /* reduces the opacity of the button to 80% */
@@ -113,36 +120,37 @@ body {
 
 /*style when modal container is visible*/
 #modal-container.is-visible {
-display: grid;
+    display: grid;
 }
 
 /*styling for modal*/
 .modal {
-margin: auto;
-display: inline-block;
-box-sizing: border-box;
-background: var(--de_champagne);
-padding: 15px;
-width: 100%;
-max-width: 700px;
-text-align: left;
+
+    margin: auto;
+    display: inline-block;
+    box-sizing: border-box;
+    background: var(--de_champagne);
+    padding: 15px;
+    width: 100%;
+    max-width: 700px;
+    text-align: left;
 }
 
 /*styling for the Close button*/
 .modal-close {
-float: right;
--webkit-appearance: none;
-border: 0;
-background: none;
-color: var(--independence);
-text-decoration: underline;
+    float: right;
+    -webkit-appearance: none;
+    border: 0;
+    background: none;
+    color: var(--independence);
+    text-decoration: underline;
 }
 
 /*styling for modal title*/
 .modal h1 {
-margin-top: 0;
-color: var(--independence);
-text-transform: capitalize;
+    margin-top: 0;
+    color: var(--independence);
+    text-transform: capitalize;
 }
 
 .modal img {
@@ -153,6 +161,6 @@ text-transform: capitalize;
 
 /*styling for modal text*/
 .modal p {
-margin-bottom: 0;
-color: var(--independence);
+    margin-bottom: 0;
+    color: var(--independence);
 }
