@@ -2,7 +2,7 @@
 let pokemonRepository = (function(){
     //The Pokemon collection
     let pokemonList = [];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=48';
 
     //add a single pokemon to the pokemonList
     function add(pokemon){
@@ -37,17 +37,17 @@ let pokemonRepository = (function(){
 
         //creating class for the list as 'pokemon-panel'
         button.classList.add('pokemon-panel');
-
-        //add click event to pokemon panel to display pokemon object on console log
-        button.addEventListener('click', function(event){
-            showDetails(pokemon);
-        });
-
+        
         //append the button on the bullet list
         listItem.appendChild(button);
 
         //append the bullet list to unordered list
         myList.appendChild(listItem);
+
+        //add click event to pokemon panel to display pokemon object on console log
+        button.addEventListener('click', function(event){
+            showDetails(pokemon);
+        });
     }
 
     //activating the loading image
@@ -156,8 +156,8 @@ let pokemonRepository = (function(){
         });
 
         //write the details of selected pokemon onto the modal
-        contentElement.innerText = 'Height: ' + pokeHeight + 'm '+ '\r\n' 
-                                    + 'Weight: ' + pokeWeight + 'kg '+ '\r\n' 
+        contentElement.innerText = 'Height: ' + pokeHeight + ' m '+ '\r\n' 
+                                    + 'Weight: ' + pokeWeight + ' kg '+ '\r\n' 
                                     + 'Types: ' + pokeTypes + '\r\n'
                                     + 'Abilities: ' + pokeAbilities;
 
