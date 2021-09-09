@@ -42,17 +42,17 @@ let pokemonRepository = (function(){
         button.setAttribute('data-target', '#exampleModal');
         button.setAttribute('data-toggle', 'modal');
 
+            //append the button on the bullet list
+        listItem.appendChild(button);
+
+        //append the bullet list to unordered list
+        myList.appendChild(listItem);    
+        
         //add click event to pokemon panel to display pokemon object on console log
         button.addEventListener('click', function(event){
             // console.log(pokemon);
             showDetails(pokemon);
         });
-
-        //append the button on the bullet list
-        listItem.appendChild(button);
-
-        //append the bullet list to unordered list
-        myList.appendChild(listItem);
     }
 
     //activating the loading image
