@@ -1,4 +1,4 @@
-# pokedex
+# Pokédex
  
  Welcome to my Pokedex repository!
 
@@ -7,4 +7,4 @@
  There are two versions:
 
 * main : using vanilla HTML, CSS, JS.
-* branch1 : using Bootstrap.
+* branch1 : plus Bootstrap (active branch)
